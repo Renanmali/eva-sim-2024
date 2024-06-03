@@ -1179,7 +1179,7 @@ def exec_comando(node):
 
 
     elif node.tag == "userEmotion":
-        global img_neutral, img_happy, img_angry, img_sad, img_surprise
+        global img_neutral, img_happy, img_angry, img_sad, img_surprise, img_fear, img_desgust
         
         if RUNNING_MODE == "EVA_ROBOT": 
             client.publish(topic_base + "/log", "EVA is capturing the user emotion...")
@@ -1249,12 +1249,14 @@ def exec_comando(node):
                 img_angry = PhotoImage(file = "images/img_angry.png")
                 img_sad = PhotoImage(file = "images/img_sad.png")
                 img_surprise = PhotoImage(file = "images/img_surprise.png")
+                img_fear = PhotoImage(file = "images/img_fear.png")
+                img_disgust = PhotoImage(file = "images/img_disgust.png")
                 pop = Toplevel(gui)
                 pop.title("userEmotion Command")
                 # Disable the max and close buttons
                 pop.resizable(False, False)
                 pop.protocol("WM_DELETE_WINDOW", False)
-                w = 697
+                w = 973
                 h = 250
                 ws = gui.winfo_screenwidth()
                 hs = gui.winfo_screenheight()
@@ -1262,19 +1264,23 @@ def exec_comando(node):
                 y = (hs/2) - (h/2)  
                 pop.geometry('%dx%d+%d+%d' % (w, h, x, y))
                 # pop.grab_set() # faz com que a janela receba todos os eventos
-                Label(pop, text="Eva is analysing your face expression. Please, choose one emotion!", font = ('Arial', 10)).place(x = 146, y = 10)
+                Label(pop, text="Eva is analysing your face expression. Please, choose one emotion!", font = ('Arial', 10)).place(x = 246, y = 10)
                 # imagens são exibidas usando os lables
                 Label(pop, image=img_neutral).place(x = 10, y = 50)
                 Label(pop, image=img_happy).place(x = 147, y = 50)
                 Label(pop, image=img_angry).place(x = 284, y = 50)
                 Label(pop, image=img_sad).place(x = 421, y = 50)
                 Label(pop, image=img_surprise).place(x = 558, y = 50)
+                Label(pop, image=img_fear).place(x = 695, y = 50)
+                Label(pop, image=img_disgust).place(x = 832, y = 50)
                 Radiobutton(pop, text = "Neutral", variable = var, font = font1, command = None, value = "NEUTRAL").place(x = 35, y = 185)
                 Radiobutton(pop, text = "Happy", variable = var, font = font1, command = None, value = "HAPPY").place(x = 172, y = 185)
                 Radiobutton(pop, text = "Angry", variable = var, font = font1, command = None, value = "ANGRY").place(x = 312, y = 185)
                 Radiobutton(pop, text = "Sad", variable = var, font = font1, command = None, value = "SAD").place(x = 452, y = 185)
                 Radiobutton(pop, text = "Surprise", variable = var, font = font1, command = None, value = "SURPRISE").place(x = 575, y = 185)
-                Button(pop, text = "     OK     ", font = font1, command = fechar_pop).place(x = 310, y = 215)
+                Radiobutton(pop, text = "Fear", variable = var, font = font1, command = None, value = "FEAR").place(x = 698, y = 185)
+                Radiobutton(pop, text = "Disgust", variable = var, font = font1, command = None, value = "DISGUST").place(x = 821, y = 185)
+                Button(pop, text = "     OK     ", font = font1, command = fechar_pop).place(x = 440, y = 215)
                 # espera pela liberacao, aguardando a resposta do usuario
                 while thread_pop_pause: 
                     time.sleep(0.5)
