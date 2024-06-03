@@ -1273,7 +1273,7 @@ def exec_comando(node):
                 Radiobutton(pop, text = "Happy", variable = var, font = font1, command = None, value = "HAPPY").place(x = 172, y = 185)
                 Radiobutton(pop, text = "Angry", variable = var, font = font1, command = None, value = "ANGRY").place(x = 312, y = 185)
                 Radiobutton(pop, text = "Sad", variable = var, font = font1, command = None, value = "SAD").place(x = 452, y = 185)
-                Radiobutton(pop, text = "Surprise", variable = var, font = font1, command = None, value = "SURPRISED").place(x = 575, y = 185)
+                Radiobutton(pop, text = "Surprise", variable = var, font = font1, command = None, value = "SURPRISE").place(x = 575, y = 185)
                 Button(pop, text = "     OK     ", font = font1, command = fechar_pop).place(x = 310, y = 215)
                 # espera pela liberacao, aguardando a resposta do usuario
                 while thread_pop_pause: 
