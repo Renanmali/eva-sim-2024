@@ -800,12 +800,23 @@ def exec_comando(node):
 
                         var = StringVar(value=transcript)
 
-                        eva_memory.var_dolar.append([var.get(), "<listen>"])
-                        gui.terminal.insert(INSERT, "\nstate: Listening : var=$" + ", value=" + eva_memory.var_dolar[-1][0])
-                        tab_load_mem_dollar()
-                        gui.terminal.see(tkinter.END)
-                        unlock_thread_pop()
-                    
+                        if node.get("var") == None: # mantém a compatibilidade com o uso da variável $
+                            eva_memory.var_dolar.append([var.get(), "<listen>"])
+                            gui.terminal.insert(INSERT, "\nSTATE: Listening : var=$" + ", value=" + eva_memory.var_dolar[-1][0])
+                            tab_load_mem_dollar()
+                            gui.terminal.see(tkinter.END)
+                            pop.destroy()
+                            unlock_thread_pop() # reativa a thread de processamento do script
+                        else:
+                            var_name = node.attrib["var"]
+                            eva_memory.vars[var_name] = var.get()
+                            print("Eva ram => ", eva_memory.vars)
+                            gui.terminal.insert(INSERT, "\nSTATE: Listening : (using the user variable '" + var_name + "'): " + var.get())
+                            tab_load_mem_vars() # entra com os dados da memoria de variaveis na tabela de vars
+                            gui.terminal.see(tkinter.END)
+                            print("Listen command USING VAR...")
+                            pop.destroy()
+                            unlock_thread_pop() # reativa a thread de processamento do script
                     except Exception as e:
                         print("Error :  " + str(e))
 
@@ -1215,13 +1226,19 @@ def exec_comando(node):
                 result_emotion = ue.run()
 
                 var = StringVar(value=result_emotion)
-
-                eva_memory.var_dolar.append([var.get(), "<userEmotion>"])
-                gui.terminal.insert(INSERT, "\nstate: userEmotion : var=$" + ", value=" + eva_memory.var_dolar[-1][0])
-                tab_load_mem_dollar()
-                gui.terminal.see(tkinter.END)
-                unlock_thread_pop()
-
+                if node.get("var") == None: # mantém a compatibilidade com o uso da variável $
+                    eva_memory.var_dolar.append([var.get(), "<userEmotion>"])
+                    gui.terminal.insert(INSERT, "\nSTATE: userEmotion : var=$" + ", value=" + eva_memory.var_dolar[-1][0])
+                    tab_load_mem_dollar()
+                    gui.terminal.see(tkinter.END)
+                else:
+                    var_name = node.attrib["var"]
+                    eva_memory.vars[var_name] = var.get()
+                    print("Eva ram => ", eva_memory.vars)
+                    gui.terminal.insert(INSERT, "\nSTATE: userEmotion : (using the user variable '" + var_name + "'): " + EVA_DOLLAR)
+                    tab_load_mem_vars() # entra com os dados da memoria de variaveis na tabela de vars
+                    gui.terminal.see(tkinter.END)
+           
             elif gui.chk_emotion_value.get() == 0:
                 def fechar_pop(): # função de fechamento da janela pop up
                     print(var.get())
@@ -1299,11 +1316,18 @@ def exec_comando(node):
 
             var = StringVar(value=result_pose)
 
-            eva_memory.var_dolar.append([var.get(), "<userHandPose>"])
-            gui.terminal.insert(INSERT, "\nstate: userHandPose : var=$" + ", value=" + eva_memory.var_dolar[-1][0])
-            tab_load_mem_dollar()
-            gui.terminal.see(tkinter.END)
-            unlock_thread_pop()
+            if node.get("var") == None: # mantém a compatibilidade com o uso da variável $
+                eva_memory.var_dolar.append([var.get(), "<userHandPose>"])
+                gui.terminal.insert(INSERT, "\nSTATE: userHandPose : var=$" + ", value=" + eva_memory.var_dolar[-1][0])
+                tab_load_mem_dollar()
+                gui.terminal.see(tkinter.END)
+            else:
+                var_name = node.attrib["var"]
+                eva_memory.vars[var_name] = var.get()
+                print("Eva ram => ", eva_memory.vars)
+                gui.terminal.insert(INSERT, "\nSTATE: userHandPose : (using the user variable '" + var_name + "'): " + EVA_DOLLAR)
+                tab_load_mem_vars() # entra com os dados da memoria de variaveis na tabela de vars
+                gui.terminal.see(tkinter.END)
 
 
         elif gui.chk_handpose_value.get() == 0:    
