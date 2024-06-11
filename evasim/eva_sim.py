@@ -61,6 +61,10 @@ import emotion as ue
 
 import config # Module with network device settings
 
+# importing library to qrRead
+
+import qrRead as qr
+
 broker = config.MQTT_BROKER_ADRESS # broker adress
 port = config.MQTT_PORT # broker port
 topic_base = config.EVA_TOPIC_BASE
@@ -1401,6 +1405,7 @@ def exec_comando(node):
 
             while (EVA_ROBOT_STATE != "FREE"):
                 pass
+
         
             if node.get("var") == None: # Maintains compatibility with the use of the $ variable
                 eva_memory.var_dolar.append([EVA_DOLLAR, "<qrRead>"])
@@ -1422,74 +1427,95 @@ def exec_comando(node):
 
             lock_thread_pop()
             ledAnimation("LISTEN")
-            # Pop up window closing function for the <return> key
-            def fechar_pop_ret(self): 
-                print(var.get())
-                if node.get("var") == None: # Maintains compatibility with the use of the $ variable
+            if gui.chk_qrRead_value.get() == 1:
+
+                result_qr = qr.main()
+
+                var = StringVar(value=result_qr)
+
+                if node.get("var") == None: # mantém a compatibilidade com o uso da variável $
                     eva_memory.var_dolar.append([var.get(), "<qrRead>"])
-                    gui.terminal.insert(INSERT, "\nSTATE: QR Code reading: var = $" + ", value = " + eva_memory.var_dolar[-1][0])
+                    gui.terminal.insert(INSERT, "\nSTATE: qrRead : var=$" + ", value=" + eva_memory.var_dolar[-1][0])
                     tab_load_mem_dollar()
                     gui.terminal.see(tkinter.END)
-                    pop.destroy()
-                    unlock_thread_pop() # Reactivate the script processing thread
                 else:
                     var_name = node.attrib["var"]
                     eva_memory.vars[var_name] = var.get()
                     print("Eva ram => ", eva_memory.vars)
-                    gui.terminal.insert(INSERT, "\nSTATE: QR Code reading (using the user variable '" + var_name + "'): " + str(eva_memory.vars[var_name]))
-                    tab_load_mem_vars() # Enter data from variable memory into the var table
+                    gui.terminal.insert(INSERT, "\nSTATE: qrRead : (using the user variable '" + var_name + "'): " + EVA_DOLLAR)
+                    tab_load_mem_vars() # entra com os dados da memoria de variaveis na tabela de vars
                     gui.terminal.see(tkinter.END)
-                    print("qrRead command USING VAR...")
-                    pop.destroy()
-                    unlock_thread_pop() # Reactivate the script processing thread
-            
-            # Pop up window closing function for OK button
-            def fechar_pop_bt(): 
-                print(var.get())
-                if node.get("var") == None: # Maintains compatibility with the use of the $ variable
-                    eva_memory.var_dolar.append([var.get(), "<qrRead>"])
-                    gui.terminal.insert(INSERT, "\nSTATE: QR Code reading: var = $" + ", value = " + eva_memory.var_dolar[-1][0])
-                    tab_load_mem_dollar()
-                    gui.terminal.see(tkinter.END)
-                    pop.destroy()
-                    unlock_thread_pop() # Reactivate the script processing thread
-                else:
-                    var_name = node.attrib["var"]
-                    eva_memory.vars[var_name] = var.get()
-                    print("Eva ram => ", eva_memory.vars)
-                    gui.terminal.insert(INSERT, "\nSTATE: QR Code reading (using the user variable '" + var_name + "'): " + str(eva_memory.vars[var_name]))
-                    tab_load_mem_vars() # Enter data from variable memory into the var table
-                    gui.terminal.see(tkinter.END)
-                    print("qrRead command USING VAR...")
-                    pop.destroy()
-                    unlock_thread_pop() # Reactivate the script processing thread
+
+            elif gui.chk_qrRead_value.get() == 0:
+
+                # Pop up window closing function for the <return> key
+                def fechar_pop_ret(self): 
+                    print(var.get())
+                    if node.get("var") == None: # Maintains compatibility with the use of the $ variable
+                        eva_memory.var_dolar.append([var.get(), "<qrRead>"])
+                        gui.terminal.insert(INSERT, "\nSTATE: QR Code reading: var = $" + ", value = " + eva_memory.var_dolar[-1][0])
+                        tab_load_mem_dollar()
+                        gui.terminal.see(tkinter.END)
+                        pop.destroy()
+                        unlock_thread_pop() # Reactivate the script processing thread
+                    else:
+                        var_name = node.attrib["var"]
+                        eva_memory.vars[var_name] = var.get()
+                        print("Eva ram => ", eva_memory.vars)
+                        gui.terminal.insert(INSERT, "\nSTATE: QR Code reading (using the user variable '" + var_name + "'): " + str(eva_memory.vars[var_name]))
+                        tab_load_mem_vars() # Enter data from variable memory into the var table
+                        gui.terminal.see(tkinter.END)
+                        print("qrRead command USING VAR...")
+                        pop.destroy()
+                        unlock_thread_pop() # Reactivate the script processing thread
                 
-            # Window (GUI) creation
-            img_qr = PhotoImage(file = "images/img_qr.png")
-            var = StringVar()
-            pop = Toplevel(gui)
-            pop.title("qrRead Command")
-            # Disable the maximize and close buttons
-            pop.resizable(False, False)
-            pop.protocol("WM_DELETE_WINDOW", False)
-            w = 350
-            h = 200
-            ws = gui.winfo_screenwidth()
-            hs = gui.winfo_screenheight()
-            x = (ws/2) - (w/2)
-            y = (hs/2) - (h/2)  
-            pop.geometry('%dx%d+%d+%d' % (w, h, x, y))
-            label = Label(pop, text="Eva is reading a QR Code... \nPlease, enter the information contained in the QRCode!", font = ('Arial', 10))
-            label.pack(pady=20)
-            Label(pop, image=img_qr).place(x = 260, y = 110)
-            E1 = Entry(pop, textvariable = var, font = ('Arial', 10))
-            E1.bind("<Return>", fechar_pop_ret)
-            E1.pack()
-            Button(pop, text="    OK    ", font = font1, command=fechar_pop_bt).pack(pady=20)
-            # Wait for release, waiting for the user's response
-            while thread_pop_pause: 
-                time.sleep(0.5)
-            ledAnimation("STOP")
+                # Pop up window closing function for OK button
+                def fechar_pop_bt(): 
+                    print(var.get())
+                    if node.get("var") == None: # Maintains compatibility with the use of the $ variable
+                        eva_memory.var_dolar.append([var.get(), "<qrRead>"])
+                        gui.terminal.insert(INSERT, "\nSTATE: QR Code reading: var = $" + ", value = " + eva_memory.var_dolar[-1][0])
+                        tab_load_mem_dollar()
+                        gui.terminal.see(tkinter.END)
+                        pop.destroy()
+                        unlock_thread_pop() # Reactivate the script processing thread
+                    else:
+                        var_name = node.attrib["var"]
+                        eva_memory.vars[var_name] = var.get()
+                        print("Eva ram => ", eva_memory.vars)
+                        gui.terminal.insert(INSERT, "\nSTATE: QR Code reading (using the user variable '" + var_name + "'): " + str(eva_memory.vars[var_name]))
+                        tab_load_mem_vars() # Enter data from variable memory into the var table
+                        gui.terminal.see(tkinter.END)
+                        print("qrRead command USING VAR...")
+                        pop.destroy()
+                        unlock_thread_pop() # Reactivate the script processing thread
+                    
+                # Window (GUI) creation
+                img_qr = PhotoImage(file = "images/img_qr.png")
+                var = StringVar()
+                pop = Toplevel(gui)
+                pop.title("qrRead Command")
+                # Disable the maximize and close buttons
+                pop.resizable(False, False)
+                pop.protocol("WM_DELETE_WINDOW", False)
+                w = 350
+                h = 200
+                ws = gui.winfo_screenwidth()
+                hs = gui.winfo_screenheight()
+                x = (ws/2) - (w/2)
+                y = (hs/2) - (h/2)  
+                pop.geometry('%dx%d+%d+%d' % (w, h, x, y))
+                label = Label(pop, text="Eva is reading a QR Code... \nPlease, enter the information contained in the QRCode!", font = ('Arial', 10))
+                label.pack(pady=20)
+                Label(pop, image=img_qr).place(x = 260, y = 110)
+                E1 = Entry(pop, textvariable = var, font = ('Arial', 10))
+                E1.bind("<Return>", fechar_pop_ret)
+                E1.pack()
+                Button(pop, text="    OK    ", font = font1, command=fechar_pop_bt).pack(pady=20)
+                # Wait for release, waiting for the user's response
+                while thread_pop_pause: 
+                    time.sleep(0.5)
+                ledAnimation("STOP")
 
 
     elif node.tag == "userID":
