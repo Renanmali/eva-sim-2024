@@ -373,6 +373,7 @@ class Gui(ttk.Frame):
         self.chk_voice_value = IntVar()
         self.chk_handpose_value = IntVar()
         self.chk_emotion_value = IntVar()
+        self.chk_qrRead_value = IntVar()
 
 
         # Creation of user interface buttons
@@ -403,6 +404,8 @@ class Gui(ttk.Frame):
         self.chk_handpose.pack(side=tkinter.LEFT, padx=self.bt_padx)
         self.chk_emotion = Checkbutton (self.frame_chk, text="Emotion", variable=self.chk_emotion_value, onvalue= 1, offvalue=0)
         self.chk_emotion.pack(side=tkinter.LEFT, padx=self.bt_padx)
+        self.chk_qrRead = Checkbutton (self.frame_chk, text="qrRead", variable=self.chk_qrRead_value, onvalue= 1, offvalue=0)
+        self.chk_qrRead.pack(side=tkinter.LEFT, padx=self.bt_padx)
 
         # Add a scrollbar(horizontal)
         self.v=Scrollbar(self.frame_terminal, orient='vertical')
@@ -410,7 +413,7 @@ class Gui(ttk.Frame):
 
         # Terminal text configuration
         self.terminal = Text (self.frame_terminal, fg = "cyan", bg = "black", height = "32", width = "125", yscrollcommand=self.v.set)
-        self.terminal.configure(font = ("Arial", 10))
+        self.terminal.configure(font = ("Arial", 9))
         self.terminal.tag_configure("error", foreground="red")
         self.terminal.tag_configure("motion", foreground="orange")
         self.terminal.tag_configure("tip", foreground="yellow")
