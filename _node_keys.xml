@@ -5,11 +5,6 @@
     <audioEffects mode="ON" />
   </settings>
   <script>
-    <talk key="1001">Diga algo</talk>
-    <listen var="escuta" key="1002" />
-    <talk key="1003">Faça um gesto</talk>
-    <userHandPose var="gesto" key="1004" />
-    <talk key="1005">Faça uma emoção</talk>
-    <userEmotion var="emoção" key="1006" />
+    <userID key="1001" />
   </script>
 </evaml>
