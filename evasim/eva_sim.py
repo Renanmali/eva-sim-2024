@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # EvaSIM 2.0 - Software Simulador para o robô EVA
-# Author: Marcelo Marques da Rocha
+# Author: Marcelo Marques da Rocha e Renan Martins Conceição Silva de Lima
 # MidiaCOM Lab - Universidade Federal Fluminense - Rio de Janeiro - Brazil
 
 from paho.mqtt import client as mqtt_client
