@@ -7,4 +7,4 @@
   <script>
     <userID key="1001" />  
   </script>
-</evaml>
+<links><link from="1000" to="1001" /></links></evaml>

@@ -9,6 +9,56 @@
     <audioEffects mode="ON" />
   </settings>
   <script>
-    <userID />
+    <talk>Olá, eu sou o robô EVA.</talk>
+    <talk>Qual é o seu nome? </talk>
+    <listen var="nome"/>
+    <talk>Seu nome é #nome</talk>
+    <talk>Faça uma emoção..</talk>
+    <userEmotion />
+    <switch var="$">
+      <case op="exact" value="ANGRY">
+        <evaEmotion emotion="ANGRY" />
+        <talk>você fez a emoção de raiva.</talk>
+      </case>
+      <case op="exact" value="HAPPY">
+        <evaEmotion emotion="HAPPY" />
+        <talk>você fez a emoção de alegria.</talk>
+      </case>
+      <case op="exact" value="SAD">
+        <evaEmotion emotion="SAD" />
+        <talk>você fez a emoçaõ de tristeza.</talk>
+      </case>
+      <case op="exact" value="SURPRISE">
+        <evaEmotion emotion="SURPRISE" />
+        <talk>você fez a emoção de surpresa.</talk>
+      </case>
+      <case op="exact" value="NEUTRAL">
+        <evaEmotion emotion="NEUTRAL" />
+        <talk>você fez a emoção Neutra.</talk>
+      </case>
+    </switch>
+    <evaEmotion emotion="NEUTRAL" />
+    <talk>Faça um gesto com uma de suas mãos.</talk>
+    <userHandPose />
+    <switch var="$">
+      <case op="exact" value="OPEN">
+        <talk>Você fez o gesto da mão aberta</talk>
+      </case>
+      <case op="exact" value="THUMBS_UP">
+        <talk>Você fez o gesto de gostei</talk>
+      </case>
+      <case op="exact" value="THUMBS_DOWN">
+        <talk>Você fez o gesto de não gostei</talk>
+      </case>
+      <case op="exact" value="PEACE">
+        <talk>Você fez o gesto de paz</talk>
+      </case>
+      <case op="exact" value="THREE">
+        <talk>Você fez o gesto de três dedos</talk>
+      </case>
+    </switch>
+    <talk>Apresente um Q.R côude para que eu leia</talk>
+    <qrRead var="qr"/>
+    <talk>A mensagem escrita no QR côude é #qr </talk>
   </script>
 </evaml>

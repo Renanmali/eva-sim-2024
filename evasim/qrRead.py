@@ -24,6 +24,8 @@ def main():
             ret, frame = cap.read()
             if not ret:
                 break
+            
+            frame = cv2.flip(frame,1)
 
             qrcode_data = decode_qrcode(frame)
             
@@ -32,11 +34,11 @@ def main():
                 break
 
             # Mostrar a imagem para facilitar o alinhamento do QR Code
-            # cv2.imshow("QR Code Scanner", frame)
+            cv2.imshow("QR Code Scanner", frame)
 
             # Encerrar se a tecla 'q' for pressionada
-            # if cv2.waitKey(1) & 0xFF == ord('q'):
-            #     break
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
     except KeyboardInterrupt:
         pass
     

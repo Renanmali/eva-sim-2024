@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<evaml
+  name="Conversando"
+  xsi:noNamespaceSchemaLocation="evaml-schema/evaml_schema.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <settings>
+    <voice tone="pt-BR_IsabelaV3Voice" />
+    <lightEffects mode="ON" />
+    <audioEffects mode="ON" />
+  </settings>
+  <script>
+    <userID />  
+    <switch var="$">
+      <case op="exact" value="NONE">
+        <talk></talk>
+        <listen />
+      </case>
+    </switch>
+  </script>
+</evaml>

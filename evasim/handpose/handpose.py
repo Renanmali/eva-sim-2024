@@ -186,15 +186,13 @@ def run():
                             run = False
                     reset_hand(i)
                     timer += t
-
-            # if debug:
                 
-            #     img=cv2.flip(img,1)
+            img=cv2.flip(img,1)
 
-            #     cv2.putText(img, f'FPS: {int(fps)}', (20, 50), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 0), 3)
-            #     cv2.imshow("Image", img)
-            #     if cv2.waitKey(1) & 0xFF == ord('q') or cv2.waitKey(1) & 0xFF == ord('Q'):
-            #         break
+            cv2.putText(img, f'FPS: {int(fps)}', (20, 50), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 0), 3)
+            cv2.imshow("Image", img)
+            if cv2.waitKey(1) & 0xFF == ord('q') or cv2.waitKey(1) & 0xFF == ord('Q'):
+                break
 
     except KeyboardInterrupt:
         pass

@@ -374,10 +374,11 @@ class Gui(ttk.Frame):
         self.chk_handpose_value = IntVar()
         self.chk_emotion_value = IntVar()
         self.chk_qrRead_value = IntVar()
+        self.chk_userid_value = IntVar()
 
 
         # Creation of user interface buttons
-        self.bt_padx = 8 # Adjust spacing between buttons
+        self.bt_padx = 5 # Adjust spacing between buttons
         self.bt_power = Button (self.frame_botoes, text = "Power On", font = self.font1)
         self.bt_power.pack(side=tkinter.LEFT, padx=self.bt_padx)
         self.bt_import = Button (self.frame_botoes, text = "Import Script File...", font = self.font1, state = DISABLED)
@@ -406,6 +407,8 @@ class Gui(ttk.Frame):
         self.chk_emotion.pack(side=tkinter.LEFT, padx=self.bt_padx)
         self.chk_qrRead = Checkbutton (self.frame_chk, text="qrRead", variable=self.chk_qrRead_value, onvalue= 1, offvalue=0)
         self.chk_qrRead.pack(side=tkinter.LEFT, padx=self.bt_padx)
+        self.chk_userid = Checkbutton (self.frame_chk, text="userId", variable=self.chk_userid_value, onvalue= 1, offvalue=0)
+        self.chk_userid.pack(side=tkinter.LEFT, padx=self.bt_padx)
 
         # Add a scrollbar(horizontal)
         self.v=Scrollbar(self.frame_terminal, orient='vertical')

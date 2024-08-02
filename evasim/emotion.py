@@ -192,7 +192,7 @@ def run():
         while run:
             success, image = cap.read()
             if success:
-                # image = cv2.resize(image, (48,48))
+                image = cv2.resize(image, (640,480))
                 frame, prediction = inference(cv2.flip(image, 1))
                 # out.write(result)
                 # print(prediction)
@@ -215,9 +215,9 @@ def run():
                         run = False
                     reset_evaluation()
                     timer += t
-                # cv2.imshow("Facial Expression Cam", frame)
-                # if cv2.waitKey(1) & 0xFF == ord('q'):
-                #     break
+                cv2.imshow("Facial Expression Cam", frame)
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
             else:
                 break
 
