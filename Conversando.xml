@@ -9,12 +9,9 @@
     <audioEffects mode="ON" />
   </settings>
   <script>
-    <userID />  
-    <switch var="$">
-      <case op="exact" value="NONE">
-        <talk></talk>
-        <listen />
-      </case>
-    </switch>
+    <evaEmotion emotion="HAPPY" />
+    <led animation="LISTEN" />
+    <light state="ON" color="PINK"/>
+    <userHandPose />
   </script>
 </evaml>

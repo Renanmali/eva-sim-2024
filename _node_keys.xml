@@ -1,10 +1,25 @@
-<evaml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Conversando" xsi:noNamespaceSchemaLocation="evaml-schema/evaml_schema.xsd" id="9ac19d87e09b6d835b866ae12bb419df">
+<evaml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="teste2" xsi:noNamespaceSchemaLocation="evaml-schema/evaml_schema.xsd" id="38851536d87701d2191990e24a7f8d4e">
   <settings>
     <voice tone="pt-BR_IsabelaV3Voice" key="1000" />
     <lightEffects mode="ON" />
     <audioEffects mode="ON" />
   </settings>
   <script>
-    <userID key="1001" />  
+    <talk key="1001">Olá meu nome é Eva</talk>
+    <talk key="1002">Qual o seu nome?</talk>
+    <listen var="nome" key="1003" />
+    <talk key="1004">olá #nome que bom conhecer você </talk>
+    <talk key="1005">qual a sua cor favorita?</talk>
+    <listen var="resposta" key="1006" />
+    <switch var="resposta">
+      <case op="contain" value="verde" key="1007" child_proc="false">
+        <talk key="1008">Que legal que sua cor favorita é verde,vou acender na lâmpada essa cor</talk>
+        <light state="ON" color="GREEN" key="1009" />
+      </case>
+      <default key="1010" child_proc="false">
+        <talk key="1011">Poxa não tenho essa cor mas tenho a cor verde</talk>
+        <light state="ON" color="GREEN" key="1012" />
+      </default>
+    </switch>
   </script>
 </evaml>

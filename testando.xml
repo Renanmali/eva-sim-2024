@@ -1,4 +1,8 @@
-<evaml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="teste2" xsi:noNamespaceSchemaLocation="evaml-schema/evaml_schema.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<evaml
+  name="teste2"
+  xsi:noNamespaceSchemaLocation="evaml-schema/evaml_schema.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <settings>
     <voice tone="pt-BR_IsabelaV3Voice" />
     <lightEffects mode="ON" />
@@ -7,14 +11,14 @@
   <script>
     <talk>Olá meu nome é Eva</talk>
     <talk>Qual o seu nome?</talk>
-    <listen var="nome" />
+    <listen var="nome"/>
     <talk>olá #nome que bom conhecer você </talk>
     <talk>qual a sua cor favorita?</talk>
-    <listen var="resposta" />
+    <listen var="resposta"/>
     <switch var="resposta">
       <case op="contain" value="verde">
         <talk>Que legal que sua cor favorita é verde,vou acender na lâmpada essa cor</talk>
-        <light state="ON" color="GREEN" />
+        <light state="ON" color="GREEN"/>
       </case>
       <default>
         <talk>Poxa não tenho essa cor mas tenho a cor verde</talk>

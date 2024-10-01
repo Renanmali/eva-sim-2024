@@ -5,6 +5,9 @@
     <audioEffects mode="ON" />
   </settings>
   <script>
-    <userID key="1001" />  
+    <evaEmotion emotion="HAPPY" key="1001" />
+    <led animation="LISTEN" key="1002" />
+    <light state="ON" color="PINK" key="1003" />
+    <userHandPose key="1004" />
   </script>
-<links><link from="1000" to="1001" /></links></evaml>
+<links><link from="1000" to="1001" /><link from="1001" to="1002" /><link from="1002" to="1003" /><link from="1003" to="1004" /></links></evaml>

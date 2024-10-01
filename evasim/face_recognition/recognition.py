@@ -10,7 +10,7 @@ mp_face_detection = mp.solutions.face_detection
 mp_drawing = mp.solutions.drawing_utils
 
 # Pasta para armazenar as imagens
-data_path = 'evasim/face_recognition/face_database'
+data_path = 'face_recognition/face_database'
 if not os.path.exists(data_path):
     os.makedirs(data_path)
 
@@ -28,7 +28,7 @@ def capture_image():
         ret, frame = cap.read()
 
         frame = cv2.flip(frame, 1)
-        cv2.imshow('Aguarde 4 segundos', frame)
+        # cv2.imshow('Aguarde 4 segundos', frame)
         
         # Espera 4 segundos antes de capturar a imagem
         if time.time() - start_time >= 4:
@@ -87,12 +87,14 @@ def main():
             recognized_name = recognize_face(face_image)
             if recognized_name:
                 print(f"Rosto reconhecido como {recognized_name}")
+                return recognized_name
             else:
-                name = input("Digite seu nome: ")
+                name = "user"
                 data = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
                 arqname = f"{name}_{data}"
                 save_image(face_image, arqname)
                 print(f"Imagem salva como {arqname}.png")
+                return "None"
         else:
             print("Nenhum rosto detectado")
     else:
@@ -100,5 +102,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
